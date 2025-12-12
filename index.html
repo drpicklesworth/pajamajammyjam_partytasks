@@ -194,9 +194,7 @@
             transform: translate(-50%, -50%) scale(0.5);
         }
 
-        .letter em {
-            font-size: 16px;
-        }
+        .letter {
             width: 90%;
             height: 80%;
             background: #fffef7;
@@ -209,16 +207,26 @@
             overflow-y: auto;
             opacity: 0;
             transition: opacity 0.4s ease 0.4s, top 0.6s ease 0.4s;
+            border: 2px solid #d4c4a0;
+            z-index: 1;
+        }
+
+        .letter p {
             font-size: 20px;
             line-height: 1.6;
             color: #2a2a2a;
-            border: 2px solid #d4c4a0;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: left;
+            text-align: center;
             white-space: pre-line;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% - 120px);
+        }
+
+        .letter em {
+            font-size: 16px;
         }
 
         .envelope.open .letter {
@@ -270,7 +278,7 @@
                 <div class="envelope-flap"></div>
                 <div class="wax-seal">PJs</div>
                 <div class="letter" id="letter">
-                    <p>Loading...</p>
+                    <p>Click envelope to reveal task</p>
                 </div>
             </div>
         </div>
@@ -309,7 +317,14 @@
                 updateContent();
             } catch (error) {
                 console.error('Error loading tasks:', error);
-                messages = ['Error loading tasks. Please check tasks.json file.'];
+                // Fallback tasks with HTML formatting examples
+                messages = [
+                    'Task 1: Take a photo doing something silly',
+                    'Task 2: Share your favorite memory',
+                    'Send one of the following questions, AND JUST THE QUESTION, via Text Message to someone (not at the party) who will definitely reply. Fastest reply gets the most points.\n<em>"Who\'s back, but in POG form?"</em>\n<em>"Do you think this message deserves a reply?"</em>\n<em>"Did you get my text last night about my colonoscopy?"</em>\n<em>"What\'s something you always wanted to tell Jason but haven\'t?"</em>',
+                    'Task 4: Sing happy birthday',
+                    'Task 5: Tell your most embarrassing story'
+                ];
                 updateContent();
             }
         }
@@ -317,7 +332,7 @@
         function updateContent() {
             if (messages.length === 0) return;
             
-            document.getElementById('letter').innerHTML = `<div>${messages[currentIndex]}</div>`;
+            document.getElementById('letter').innerHTML = `<p>${messages[currentIndex]}</p>`;
             
             const sealElement = document.querySelector('.wax-seal');
             sealElement.textContent = waxSealText;
