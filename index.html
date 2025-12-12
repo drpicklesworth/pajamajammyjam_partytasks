@@ -194,7 +194,9 @@
             transform: translate(-50%, -50%) scale(0.5);
         }
 
-        .letter {
+        .letter em {
+            font-size: 16px;
+        }
             width: 90%;
             height: 80%;
             background: #fffef7;
@@ -315,7 +317,7 @@
         function updateContent() {
             if (messages.length === 0) return;
             
-            document.getElementById('letter').innerHTML = `<p>${messages[currentIndex]}</p>`;
+            document.getElementById('letter').innerHTML = `<div>${messages[currentIndex]}</div>`;
             
             const sealElement = document.querySelector('.wax-seal');
             sealElement.textContent = waxSealText;
